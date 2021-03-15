@@ -16,7 +16,9 @@ More modules will be added later.
 ```terminal
 pip install SMRCBuilder
 ```
+
 or
+
 ```
 python3 -m pip install SMRCBuilder
 ```
@@ -24,32 +26,81 @@ python3 -m pip install SMRCBuilder
 ## Communications Module
 
 Like the regular socket module, you will need 2
+
 Python files. One for the client, and the other for the server.
 
-Here is how to host a socket connection
+# Server
+
+### Import
+
+We will only import the Comms Library
 
 ```python
-#First, you import the variable
-#We will only import the Comms Library
 from SMRCBuilder import Comms
+```
 
-#Then, you will need to define a variable
-#You need to pass in 2 arguments
-#The IP address, and port
-#For now, we will use the localhost ip
+Then, you will need to define a variable
+
+You need to pass in 2 arguments
+
+The IP address, and port
+
+For now, we will use the localhost ip
+
+```python
 myserver = Comms.comms("127.0.0.1", 8080)
+```
 
-#Now, you need to declare the type
-#It can only be "Server" Or "Client"
+### Declare The Type
+
+It can only be "Server" Or "Client"
+
+```python
 myserver.setgroup("Server")
+```
 
-#Now you can start the connection
+### Start The Connection
+
+```python
 myserver.server.start()
+```
 
-#Here is how to send a message
-#There are 2 arguments you can to pass in
-#The message is required
-#If you want to, you can leave the encoding blank
-#The program will default to utf8
-myserver.server.sendmsg()
+### Sending A Message
+
+There are 2 arguments you can to pass in
+
+The message is required
+
+If you want to, you can leave the encoding blank
+
+The program will default to utf8
+
+You DO NOT need to include `bytes()`
+
+```python
+myserver.server.sendmsg("Hello World!")
+```
+
+### Recieving A Message
+Like the sendmsg function, there are 2 parameters you can pass in
+
+The default buffer size is 1024 bytes
+
+And the default encoding is utf8
+
+```python
+buffer = 1024 #Default
+encoding = "utf8" #Default
+recv = myserver.server.recvmsg(buffer, encoding)
+print(recv)
+```
+# Client
+Like the server, you need to
+
+Define a variable and set the type to "Client"
+
+```python
+from SMRCBuilder import Comms
+client = Comms.comms("127.0.0.1", 8080)
+client.setgroup("Client")
 ```
