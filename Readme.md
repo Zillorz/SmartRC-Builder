@@ -101,6 +101,25 @@ Define a variable and set the type to "Client"
 
 ```python
 from SMRCBuilder import Comms
-client = Comms.comms("127.0.0.1", 8080)
-client.setgroup("Client")
+myclient = Comms.comms("127.0.0.1", 8080)
+myclient.setgroup("Client")
+```
+
+### Attempt Connection
+```python
+myclient.client.connect()
+```
+
+### Sending and Receiving A Message
+Like the server, the client class has 2 parameters to pass in.
+
+The message (Which is required)
+
+and the encoding (which again, is utf8 by default)
+
+```python
+myclient.client.sendmsg("Hello World", "utf8")
+
+recv = myclient.client.recvmsg(1024, "utf8")
+print(recv)
 ```
